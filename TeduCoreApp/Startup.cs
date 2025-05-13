@@ -13,6 +13,11 @@ using TeduCoreApp.Models;
 using TeduCoreApp.Services;
 using TeduCoreApp.Data.EF;
 using TeduCoreApp.Data.Entities;
+using AutoMapper;
+using TeduCoreApp.Application.Interfaces;
+using TeduCoreApp.Data.IRepositories;
+using TeduCoreApp.Data.EF.Repositories;
+using TeduCoreApp.Application.Implementation;
 
 namespace TeduCoreApp
 {
@@ -39,8 +44,14 @@ namespace TeduCoreApp
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+
+            services.AddSingleton(Mapper.Configuration);
+            services.AddScoped<Mapper>(sp=>new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(),sp.GetService));
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<DbInitializer>();
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
+
             services.AddMvc();
         }
 
