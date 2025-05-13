@@ -7,12 +7,12 @@ using TeduCoreApp.Data.Entities;
 
 namespace TeduCoreApp.Data.EF.Configurations
 {
-    public class TagConfiguration : DbEntityConfiguration<Tag>
+    public class AdvertistmentPositionConfiguration : DbEntityConfiguration<AdvertistmentPosition>
     {
-        public override void Configure(EntityTypeBuilder<Tag> entity)
+        public override void Configure(EntityTypeBuilder<AdvertistmentPosition> entity)
         {
-            entity.Property(c => c.Id).HasMaxLength(50)
-                .IsRequired().IsUnicode(false).HasMaxLength(50);
+            entity.Property(c => c.Id).HasMaxLength(20).IsRequired();
+            // etc.
         }
     }
 }
